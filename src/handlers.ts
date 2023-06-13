@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import {
   ExpenseEntity, padNumber, round2, Workload,
 } from './utils';
@@ -141,3 +142,14 @@ export const consoleLog = (objs: []) => {
 };
 export const sortByWeek = (entities: ExpenseEntity[]) => entities;
 export const maxExpense = (entities: ExpenseEntity[]) => entities;
+
+export const findPriorFile = () => {
+  const dir = '/Users/viktor/Downloads/';
+  const filtered = fs.readdirSync(dir).filter((value:string) => value.includes('Vpsk_') && value.includes('.csv'));
+  const mtimes = filtered.map((filename) => ({
+    filename,
+    mtime: fs.statSync(`${dir}/${filename}`).mtime.getTime(),
+  })).sort((a, b) => b.mtime - a.mtime);
+
+  return mtimes.length ? mtimes[0].filename : null;
+};

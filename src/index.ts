@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 
 import { parseDouble, ExpenseEntity, pipe } from './utils';
 import {
-  createWorkload, describeExpenses,
+  createWorkload, describeExpenses, findPriorFile,
   maxExpenses, myGroupByWeek, printMax, roundEntities, sortByDateDesc,
 } from './handlers';
 
@@ -30,9 +30,9 @@ function decode(content) {
 }
 
 function bootstrap(): void {
-
-
-  const rr = decode(fs.readFileSync('/Users/viktor/Downloads/Vpsk_69297549-19.csv'));
+  console.log(findPriorFile());
+  return;
+  const rr = decode(fs.readFileSync('/Users/viktor/Downloads/Vpsk_70261715-3.csv'));
 
   const headers = ['date', 'name', 'summ', 'currency', 'opDate', 'comm', 'value', 'none', 'category'];
   parse(rr, {
